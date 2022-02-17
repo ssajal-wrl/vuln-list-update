@@ -88,6 +88,10 @@ jobs:
       run: ./scripts/update.sh mariner "CBL-Mariner Vulnerability Data"
 
     - if: always()
+      name: WindRiver CVE Tracker
+      run: ./vuln-list-update -target wrlinux
+
+    - if: always()
       name: OSV Database
       run: ./scripts/update.sh osv "OSV Database"
 

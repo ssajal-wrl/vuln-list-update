@@ -35,11 +35,12 @@ import (
 	"github.com/aquasecurity/vuln-list-update/ubuntu"
 	"github.com/aquasecurity/vuln-list-update/utils"
 	"github.com/aquasecurity/vuln-list-update/wolfi"
+	"github.com/aquasecurity/vuln-list-update/wrlinux"
 )
 
 var (
 	target = flag.String("target", "", "update target (nvd, alpine, alpine-unfixed, redhat, redhat-oval, "+
-		"debian, ubuntu, amazon, oracle-oval, suse-cvrf, photon, arch-linux, ghsa, glad, cwe, osv, mariner, kevc, wolfi, chainguard, k8s)")
+		"debian, ubuntu, amazon, oracle-oval, suse-cvrf, photon, arch-linux, ghsa, glad, cwe, osv, mariner, kevc, wolfi, chainguard, k8s, wrlinux)")
 	vulnListDir  = flag.String("vuln-list-dir", "", "vuln-list dir")
 	targetUri    = flag.String("target-uri", "", "alternative repository URI (only glad)")
 	targetBranch = flag.String("target-branch", "", "alternative repository branch (only glad)")
@@ -175,6 +176,10 @@ func run() error {
 	case "k8s":
 		if err := k8s.Update(); err != nil {
 			return xerrors.Errorf("k8s update error: %w", err)
+		}
+	case "wrlinux":
+		if err := wrlinux.Update(); err != nil {
+			return xerrors.Errorf("WRLinux update error: %w", err)
 		}
 	default:
 		return xerrors.New("unknown target")
